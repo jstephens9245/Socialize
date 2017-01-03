@@ -30926,7 +30926,7 @@
 	      ),
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'col-xs-8', style: { marginTop: 50 } },
+	        { className: 'col-xs-8', style: { marginTop: 50, marginBottom: 70 } },
 	        props.children && _react2.default.cloneElement(props.children, props),
 	        props.bios.map(function (bio) {
 	          return _react2.default.createElement(
@@ -30942,7 +30942,7 @@
 	      )
 	    ) : _react2.default.createElement(
 	      'div',
-	      { className: 'col-xs-12', style: { marginTop: 50 } },
+	      { className: 'col-xs-12', style: { marginTop: 50, marginBottom: 70 } },
 	      props.children && _react2.default.cloneElement(props.children, props),
 	      props.bios.map(function (bio) {
 	        return _react2.default.createElement(
@@ -31636,6 +31636,8 @@
 	  value: true
 	});
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -31654,10 +31656,20 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
+	  // console.log(ownProps);
 	  return {
-	    bios: state.bios.bios,
-	    mutual: state.user.mutualFriends
+	    id: ownProps.id,
+	    firstname: ownProps.firstname,
+	    lastname: ownProps.lastname,
+	    self: ownProps.self,
+	    loggedInUser: state.user.user
 	  };
 	};
 	
@@ -31668,51 +31680,62 @@
 	        lastname: lastname, self: self }).then(function (res) {
 	        console.log(res.data);
 	      });
-	    },
-	    mutualFriends: function mutualFriends(id) {
-	      // axios.get(`/api/friends/${id}`)
-	      // .then(res => {
-	      //   console.log(res.data);
-	      //   // dispatch(getMutualById(id))
-	      //
-	      //   return res.data
-	      // })
-	
-	      // dispatch(getMutualById(id))
 	    }
 	  };
 	};
 	
-	// class AU extends Component {
-	//   constructor(props) {
-	//     super(props);
-	//     this.state = {
-	//       mutual: []
-	//     }
-	//     this.mutualFriends = this.mutualFriends.bind(this);
-	//   }
-	//
-	//   mutualFriends(id) {
-	//     axios.get(`/api/friends/${id}`)
-	//     .then(res => {
-	//       console.log(res.data);
-	//       this.setState({mutual: res.data})
-	//       // dispatch(receiveMutualFriends(res.data))
-	//       })
-	//
-	//     // dispatch(getMutualById(id))
-	//   }
-	//   render() {
-	//     return (
-	//       <AllUsers
-	//         mutual={this.state.mutual}
-	//         mutualFriends={this.mutualFriends} />
-	//     )
-	//   }
-	// }
+	var AU = function (_Component) {
+	  _inherits(AU, _Component);
 	
+	  function AU(props) {
+	    _classCallCheck(this, AU);
 	
-	var BioContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_AllUsers2.default);
+	    var _this = _possibleConstructorReturn(this, (AU.__proto__ || Object.getPrototypeOf(AU)).call(this, props));
+	
+	    _this.state = {
+	      loggedInUser: props.loggedInUser,
+	      mutual: [],
+	      id: props.id,
+	      firstname: props.firstname,
+	      lastname: props.lastname,
+	      self: props.self
+	    };
+	    _this.mutualFriends = _this.mutualFriends.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(AU, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.mutualFriends(this.state.id);
+	    }
+	  }, {
+	    key: 'mutualFriends',
+	    value: function mutualFriends(id) {
+	      var _this2 = this;
+	
+	      _axios2.default.get('/api/friends/' + id).then(function (res) {
+	        _this2.setState({ mutual: res.data });
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_AllUsers2.default, {
+	        id: this.state.id,
+	        loggedInUser: this.state.loggedInUser,
+	        firstname: this.state.firstname,
+	        lastname: this.state.lastname,
+	        self: this.state.self,
+	        mutual: this.state.mutual,
+	        mutualFriends: this.mutualFriends });
+	    }
+	  }]);
+	
+	  return AU;
+	}(_react.Component);
+	
+	var BioContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(AU);
 	
 	exports.default = BioContainer;
 
@@ -31729,8 +31752,8 @@
 	exports.default = function (props) {
 	
 	  var bio = props;
-	  // props.mutualFriends(bio.id) // causing infinite
-	  // console.log(props.mutual);
+	  console.log('user id', bio.id);
+	  console.log('props', props);
 	  return _react2.default.createElement(
 	    'div',
 	    null,
@@ -31774,13 +31797,13 @@
 	            )
 	          )
 	        ),
-	        _react2.default.createElement(
+	        props.loggedInUser.id !== bio.id ? _react2.default.createElement(
 	          'button',
 	          { className: 'btn btn-primary', onClick: function onClick() {
 	              bio.addFriend(bio.id, bio.firstname, bio.lastname, bio.self);
 	            } },
 	          'Add Friend'
-	        )
+	        ) : null
 	      )
 	    )
 	  );

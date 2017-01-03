@@ -17,7 +17,7 @@ const App = (props) => {
             <LeftSidebarContainer />
             <RightSidebarContainer />
           </div>
-          <div className="col-xs-8" style={{marginTop: 50}}>
+          <div className="col-xs-8" style={{marginTop: 50, marginBottom: 70}}>
             {
               props.children && React.cloneElement(props.children, props)
             }
@@ -34,7 +34,7 @@ const App = (props) => {
           </div>
         </div>
       ) : (
-        <div className="col-xs-12" style={{marginTop: 50}}>
+        <div className="col-xs-12" style={{marginTop: 50, marginBottom: 70}}>
           {
             props.children && React.cloneElement(props.children, props)
           }

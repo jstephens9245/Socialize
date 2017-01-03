@@ -13,10 +13,14 @@ router.get('/:friendId', function(req, res, next) {
 
   }}).then(friends => {
 
-    let mutual = Friend.mutualFriends(friends, friendId);
-    mutual.then(result => {
-      res.json(result)
-    })
+    if(friendId !== req.session.userId) {
+      let mutual = Friend.mutualFriends(friends, friendId);
+      mutual.then(result => {
+        res.json(result)
+      })
+    } else {
+      res.json([]);
+    }
 
   }).catch(next)
 })
