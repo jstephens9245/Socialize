@@ -34,3 +34,48 @@ class method Ideas:
  -set up a new Message with opposite sender and receivers
 
  maybe load users to the home page, for my onEnter
+-------------------------------
+Express:
+
+Static file server
+
+Setup each model's API routes in a separate file using RESTful
+routing
+
+Create middleware (you can use an NPM package) that uses sessions
+to track users across requests
+
+Sequelize:
+
+Create at least 5 models
+
+Each models needs appropriate types and validations
+Make sure to include and use appropriately at least 2 instance
+methods, 2 class methods, and a hook
+
+You must have a one-to-one relationship, a one-to-many
+relationship, and a many-to-many relationship
+
+Demonstrate eager loading in one of your routes
+
+React:
+At least 7 different components, one of which allows for login and
+sign up
+
+Clear separation between stateful and stateless components
+Create a form with local state that demonstrates React's two way
+binding
+
+React forms employ all 4 CRUD operations
+
+React Router:
+
+Appropriately use onEnter to query for initial data
+
+Redux:
+
+Appropriately use the connect method to distribute state as props
+to each component
+
+Use at least three separate reducers in separate files which are
+combined into a single reducer

@@ -17,6 +17,7 @@ export const setStateMessageInput = inputMessValue => {
 }
 
 export const updateMessages = message => {
+  console.log(message);
   return {
     type: INPUT_MESSAGE,
     message

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import PostForm from '../components/PostForm';
+import PostsForm from '../components/PostsForm';
 import {addNewPost, setStatePostInput} from '../redux/action-creators/posts';
 
 const mapStateToProps = function (state, ownProps) {
@@ -23,9 +23,9 @@ const mapDispatchToProps = function (dispatch, ownProps) {
   }
 }
 
-const PostFormContainer = connect(
+const PostsFormContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(PostForm);
+)(PostsForm);
 
-export default PostFormContainer;
+export default PostsFormContainer;

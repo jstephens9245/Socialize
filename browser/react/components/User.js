@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
-import PostContainer from '../containers/PostContainer'
-import PostFormContainer from '../containers/PostFormContainer'
+import PostsContainer from '../containers/PostsContainer'
+import PostsFormContainer from '../containers/PostsFormContainer'
 
 export default function (props) {
 
@@ -9,8 +9,8 @@ export default function (props) {
  const messages = props.user.messages;
  return (
    <div>
-     <PostContainer posts={posts}/>
-     <PostFormContainer />
+     <PostsContainer posts={posts}/>
+     <PostsFormContainer />
    </div>
  );
 };

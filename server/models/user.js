@@ -40,6 +40,18 @@ instanceMethods: {
       })
     })
   }
+},
+classMethods: {
+  friendUserInfo: function (arrayOfFriends) {
+    arrayOfFriends.map(friend => {
+      return User.findOne({
+        id: friend.id
+      }).then(friendInfo => {
+        return friendInfo
+      })
+    })
+    return arrayOfFriends;
+  },
 }
 })
 

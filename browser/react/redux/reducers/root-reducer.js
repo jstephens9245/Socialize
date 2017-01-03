@@ -5,6 +5,8 @@ import signupReducer from './signup-reducer'
 import postsReducer from './posts-reducer'
 import userReducer from './user-reducer'
 import messagesReducer from './messages-reducer'
+import biosReducer from './bios-reducer'
+
 
 export default combineReducers({
   navbar: navbarReducer,
@@ -13,4 +15,5 @@ export default combineReducers({
   posts: postsReducer,
   user: userReducer,
   messages: messagesReducer,
+  bios: biosReducer,
 });

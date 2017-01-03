@@ -6,8 +6,6 @@ const authMiddleware = require('../../middleware/authMiddleware')
 // router.use(authMiddleware);
 
 router.get('/', function(req, res, next) {
-  // console.log('on Enter');
-  // console.log(req.session.userId);
 
   Post.findAll({where: {
     userId: req.session.userId
@@ -17,8 +15,7 @@ router.get('/', function(req, res, next) {
 })
 
 router.post('/', function(req, res, next) {
-  // console.log(req.body);
-  // console.log(req.session.userId);
+
   Post.create({
     post: req.body.post,
     userId: req.session.userId
@@ -26,6 +23,43 @@ router.post('/', function(req, res, next) {
   .then(post => {
     res.json(post)
   }).catch(next)
+})
+
+router.get('/:postId', function(req, res, next) {
+
+  Post.findOne({where: {
+    id: Number(req.params.postId),
+    userId: req.session.userId,
+  }}).then(post => {
+    res.json(post)
+  }).catch(next)
+})
+
+router.put('/:postId', function(req, res, next) {
+  Post.findOne({where: {
+    id: Number(req.params.postId),
+    userId: req.session.userId,
+  }}).then(post => {
+    post.update({post: req.body.post}).then(() => {
+      res.json(post)
+
+    })
+  }).catch(next)
+})
+
+
+router.delete('/:id', function(req, res) {
+  Post.findOne({where: {
+    id: Number(req.params.id),
+    userId: req.session.userId,
+  }}).then(post => {
+    console.log(post);
+    post.destroy().then(delNum => {
+      // res.send('hit the delete');
+    })
+  })
+
+
 })
 
 module.exports = router;

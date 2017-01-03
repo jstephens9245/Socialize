@@ -14,11 +14,13 @@ export default (state=initialMessageState, action) => {
       return nextState;
       break;
     case INPUT_MESSAGE:
-    nextState.messages = [...nextState.messages, action.message]
-    return nextState;
+      nextState.messages = [...nextState.messages, action.message]
+      return nextState;
+      break;
     case RECEIVE_ALL_MESSAGES:
-    nextState.messages = action.messages;
-    return nextState;
+      nextState.messages = action.messages;
+      return nextState;
+      break;
     default:
       return state;
 

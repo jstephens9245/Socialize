@@ -4,7 +4,7 @@ import Messages from '../components/Messages';
 import {signUpUser, updateState} from '../redux/action-creators/signup';
 
 const mapStateToProps = (state, ownProps) => {
-  console.log('messagesCon state', state);
+  // console.log('messagesCon state', state);
   return {
     messages: state.messages.messages,
   };

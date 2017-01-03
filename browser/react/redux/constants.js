@@ -1,10 +1,13 @@
 export const RECEIVE_ALL_POSTS = "RECEIVE_ALL_POSTS";
+export const RECEIVE_POST = "RECEIVE_POST";
 export const INPUT_POST = "INPUT_POST";
 export const UPDATE_INPUT_POST = 'UPDATE_INPUT_POST';
 
 export const RECEIVE_ALL_MESSAGES = "RECEIVE_ALL_MESSAGES";
 export const INPUT_MESSAGE = "INPUT_MESSAGE";
 export const UPDATE_INPUT_MESSAGE = 'UPDATE_INPUT_MESSAGE';
+
+export const RECEIVE_ALL_BIOS = "RECEIVE_ALL_MESSAGES";
 
 export const SIGN_UP = 'SIGN_UP';
 export const LOGIN = 'LOGIN';

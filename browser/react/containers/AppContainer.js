@@ -4,7 +4,8 @@ import App from '../components/App';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    user: state.user.user
+    user: state.user.user,
+    bios: state.bios.bios
   };
 }
 

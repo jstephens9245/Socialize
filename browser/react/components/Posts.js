@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
+import PostContainer from '../containers/PostContainer';
 
 export default function (props) {
 
@@ -12,13 +13,16 @@ export default function (props) {
         {
           posts && posts.map(post => (
             <div className="col-xs-10 col-xs-offset-1" key={ post.id }>
-              <Link className="thumbnail" to={`/posts/${post.id}`}>
+              <Link className="thumbnail" to={`/${props.user.id}/posts/${post.id}`}>
                 <div className="caption">
                   <p style={{fontSize: '1.6em'}}>
                     <span>{ post.post }</span>
                   </p>
                 </div>
               </Link>
+              <button className="btn btn-primary" onClick={() => {
+                props.deletePost(post.id)
+              }}>Delete</button>
             </div>
           ))
         }
