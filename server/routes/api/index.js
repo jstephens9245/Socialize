@@ -5,6 +5,7 @@ const usersRoute = require('./users');
 const messagesRoute = require('./messages');
 const bioRoute = require('./bios');
 const sessionsRoute = require('./sessions.js')
+const friendsRoute = require('./friends.js')
 
 router.get('/', function(req, res) {
   res.send('API HOME');
@@ -14,6 +15,7 @@ router.use('/posts', postsRoute);
 router.use('/users', usersRoute);
 router.use('/messages', messagesRoute);
 router.use('/sessions', sessionsRoute);
+router.use('/friends', friendsRoute);
 router.use('/bio', bioRoute);
 
 module.exports = router;

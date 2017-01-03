@@ -31640,6 +31640,14 @@
 	        lastname: lastname, self: self }).then(function (res) {
 	        console.log(res.data);
 	      });
+	    },
+	    mutualFriends: function mutualFriends(id) {
+	      var result = null;
+	      _axios2.default.get('/api/friends').then(function (res) {
+	        console.log(res.data);
+	        result = res.data;
+	      });
+	      return result;
 	    }
 	  };
 	};
@@ -31662,6 +31670,7 @@
 	
 	  var bio = props;
 	  var mutual = props.mutualFriends(bio.id);
+	  console.log(mutual);
 	  return _react2.default.createElement(
 	    'div',
 	    null,

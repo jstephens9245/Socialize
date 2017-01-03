@@ -17,6 +17,15 @@ const mapDispatchToProps = function (dispatch, ownProps) {
       .then(res => {
         console.log(res.data);
       })
+    },
+    mutualFriends: function(id) {
+      let result = null
+      axios.get('/api/friends')
+      .then(res => {
+        console.log(res.data);
+        result = res.data
+      })
+      return result;
     }
   }
 }

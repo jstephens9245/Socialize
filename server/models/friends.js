@@ -2,6 +2,9 @@ const Sequelize = require('sequelize');
 const db = require('./db')
 
 const Friend = db.define('friend', {
+  userInfoId: {
+    type: Sequelize.INTEGER,
+  },
   firstname: {
     type: Sequelize.STRING,
   },
@@ -14,12 +17,31 @@ const Friend = db.define('friend', {
 }, {
   classMethods: {
     mutualFriends: function(arr) {
-      let numArr = arr.map(friend => {
-        return friend.findAll({}).then(friends => {
-          return friends.length
+      let mutual = [];
+
+      let userIdArr = arr.map(friend => {
+        return friend.userInfoId
+      })
+
+      return userIdArr.map(userId => {
+        // console.log('userId', userId);
+        Friend.findAll({where: {
+          userId: userId
+        }}).then(friends => {
+          for (var i = 0; i < friends.length; i++) {
+            let friendId = friends[i].userInfoId
+            if(userIdArr.indexOf(friendId) !== -1) {
+              // console.log('friendId', friendId);
+              // return friendId
+              mutual.push(friendId);
+            }
+          }
+        }).then(now => {
+          console.log('mutual', mutual);
+          return mutual;
+
         })
       })
-      return numArr;
     }
   }
 })

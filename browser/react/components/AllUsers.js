@@ -6,6 +6,7 @@ export default function (props) {
 
   const bio = props;
   const mutual = props.mutualFriends(bio.id)
+  console.log(mutual);
   return (
     <div>
       <h3 className="col-xs-10 col-xs-offset-1"></h3>

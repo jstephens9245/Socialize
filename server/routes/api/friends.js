@@ -10,8 +10,16 @@ router.get('/', function(req, res, next) {
   Friend.findAll({where: {
     userId: req.session.userId
   }}).then(friends => {
-    console.log(Friend.mutualFriends(friends));
-    res.json(friends)
+    // console.log(friends);
+    let mutual = Friend.mutualFriends(friends);
+    // mutual.then(newMutual => {
+    //
+    //   console.log('express', newMutual);
+    //   res.json({mutual: newMutual})
+    // })
+    console.log('express', mutual);
+      res.json({mutual: mutual})
+
   }).catch(next)
 })
 

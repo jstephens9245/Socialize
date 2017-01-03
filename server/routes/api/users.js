@@ -21,7 +21,7 @@ router.get('/', function(req, res) {
 router.post('/addfriend', function(req,res) {
   console.log('hitting addFriend', req.body);
   Friend.create({
-      id: req.body.user,
+      userInfoId: req.body.user,
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       self: req.body.self,
