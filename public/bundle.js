@@ -23605,7 +23605,9 @@
 	var INPUT_MESSAGE = exports.INPUT_MESSAGE = "INPUT_MESSAGE";
 	var UPDATE_INPUT_MESSAGE = exports.UPDATE_INPUT_MESSAGE = 'UPDATE_INPUT_MESSAGE';
 	
-	var RECEIVE_ALL_BIOS = exports.RECEIVE_ALL_BIOS = "RECEIVE_ALL_MESSAGES";
+	var RECEIVE_ALL_BIOS = exports.RECEIVE_ALL_BIOS = "RECEIVE_ALL_BIOS";
+	
+	var RECEIVE_MUTUAL = exports.RECEIVE_MUTUAL = "RECEIVE_ALL_MUTUAL";
 	
 	var SIGN_UP = exports.SIGN_UP = 'SIGN_UP';
 	var LOGIN = exports.LOGIN = 'LOGIN';
@@ -23764,7 +23766,8 @@
 	var _constants = __webpack_require__(209);
 	
 	var initalSignState = {
-	  user: {}
+	  user: {},
+	  mutualFriends: []
 	};
 	
 	exports.default = function () {
@@ -23776,6 +23779,10 @@
 	  switch (action.type) {
 	    case _constants.RECEIVE_USER:
 	      nextState.user = action.user;
+	      return nextState;
+	      break;
+	    case _constants.RECEIVE_MUTUAL:
+	      nextState.mutualFriends = action.mutual;
 	      return nextState;
 	      break;
 	    default:
@@ -31405,7 +31412,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.receiveUser = undefined;
+	exports.getMutualById = exports.receiveMutualFriends = exports.receiveUser = undefined;
 	
 	var _constants = __webpack_require__(209);
 	
@@ -31419,6 +31426,24 @@
 	  return {
 	    type: _constants.RECEIVE_USER,
 	    user: user
+	  };
+	};
+	
+	var receiveMutualFriends = exports.receiveMutualFriends = function receiveMutualFriends(mutual) {
+	  return {
+	    type: _constants.RECEIVE_MUTUAL,
+	    mutual: mutual
+	  };
+	};
+	
+	var getMutualById = exports.getMutualById = function getMutualById(id) {
+	  console.log(id);
+	  return function (dispatch) {
+	
+	    _axios2.default.get('/api/friends/' + id).then(function (response) {
+	      console.log(response.data);
+	      dispatch(receiveMutualFriends(response.data));
+	    });
 	  };
 	};
 
@@ -31621,6 +31646,8 @@
 	
 	var _AllUsers2 = _interopRequireDefault(_AllUsers);
 	
+	var _user = __webpack_require__(313);
+	
 	var _axios = __webpack_require__(278);
 	
 	var _axios2 = _interopRequireDefault(_axios);
@@ -31629,7 +31656,8 @@
 	
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
 	  return {
-	    bios: state.bios.bios
+	    bios: state.bios.bios,
+	    mutual: state.user.mutualFriends
 	  };
 	};
 	
@@ -31642,15 +31670,47 @@
 	      });
 	    },
 	    mutualFriends: function mutualFriends(id) {
-	      var result = null;
-	      _axios2.default.get('/api/friends').then(function (res) {
-	        console.log(res.data);
-	        result = res.data;
-	      });
-	      return result;
+	      // axios.get(`/api/friends/${id}`)
+	      // .then(res => {
+	      //   console.log(res.data);
+	      //   // dispatch(getMutualById(id))
+	      //
+	      //   return res.data
+	      // })
+	
+	      // dispatch(getMutualById(id))
 	    }
 	  };
 	};
+	
+	// class AU extends Component {
+	//   constructor(props) {
+	//     super(props);
+	//     this.state = {
+	//       mutual: []
+	//     }
+	//     this.mutualFriends = this.mutualFriends.bind(this);
+	//   }
+	//
+	//   mutualFriends(id) {
+	//     axios.get(`/api/friends/${id}`)
+	//     .then(res => {
+	//       console.log(res.data);
+	//       this.setState({mutual: res.data})
+	//       // dispatch(receiveMutualFriends(res.data))
+	//       })
+	//
+	//     // dispatch(getMutualById(id))
+	//   }
+	//   render() {
+	//     return (
+	//       <AllUsers
+	//         mutual={this.state.mutual}
+	//         mutualFriends={this.mutualFriends} />
+	//     )
+	//   }
+	// }
+	
 	
 	var BioContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_AllUsers2.default);
 	
@@ -31669,8 +31729,8 @@
 	exports.default = function (props) {
 	
 	  var bio = props;
-	  var mutual = props.mutualFriends(bio.id);
-	  console.log(mutual);
+	  // props.mutualFriends(bio.id) // causing infinite
+	  // console.log(props.mutual);
 	  return _react2.default.createElement(
 	    'div',
 	    null,
@@ -31690,7 +31750,16 @@
 	            _react2.default.createElement(
 	              'h5',
 	              null,
-	              _react2.default.createElement(
+	              props.mutual.length ? _react2.default.createElement(
+	                'span',
+	                null,
+	                bio.firstname,
+	                ' ',
+	                bio.lastname,
+	                ' has ',
+	                props.mutual.length,
+	                ' friends'
+	              ) : _react2.default.createElement(
 	                'span',
 	                null,
 	                bio.firstname,

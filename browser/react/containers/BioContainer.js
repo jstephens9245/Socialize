@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import AllUsers from '../components/AllUsers';
+import {getMutualById, receiveMutualFriends} from '../redux/action-creators/user'
 import axios from 'axios';
 
 const mapStateToProps = function (state, ownProps) {
   return {
     bios: state.bios.bios,
+    mutual: state.user.mutualFriends,
   };
 }
 
@@ -19,16 +21,47 @@ const mapDispatchToProps = function (dispatch, ownProps) {
       })
     },
     mutualFriends: function(id) {
-      let result = null
-      axios.get('/api/friends')
-      .then(res => {
-        console.log(res.data);
-        result = res.data
-      })
-      return result;
+      // axios.get(`/api/friends/${id}`)
+      // .then(res => {
+      //   console.log(res.data);
+      //   // dispatch(getMutualById(id))
+      //
+      //   return res.data
+      // })
+
+      // dispatch(getMutualById(id))
     }
   }
 }
+
+// class AU extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       mutual: []
+//     }
+//     this.mutualFriends = this.mutualFriends.bind(this);
+//   }
+//
+//   mutualFriends(id) {
+//     axios.get(`/api/friends/${id}`)
+//     .then(res => {
+//       console.log(res.data);
+//       this.setState({mutual: res.data})
+//       // dispatch(receiveMutualFriends(res.data))
+//       })
+//
+//     // dispatch(getMutualById(id))
+//   }
+//   render() {
+//     return (
+//       <AllUsers
+//         mutual={this.state.mutual}
+//         mutualFriends={this.mutualFriends} />
+//     )
+//   }
+// }
+
 
 const BioContainer = connect(
   mapStateToProps,

@@ -16,31 +16,24 @@ const Friend = db.define('friend', {
   }
 }, {
   classMethods: {
-    mutualFriends: function(arr) {
+    mutualFriends: function(arr, userId) {
       let mutual = [];
 
       let userIdArr = arr.map(friend => {
         return friend.userInfoId
       })
 
-      return userIdArr.map(userId => {
-        // console.log('userId', userId);
-        Friend.findAll({where: {
-          userId: userId
-        }}).then(friends => {
-          for (var i = 0; i < friends.length; i++) {
-            let friendId = friends[i].userInfoId
-            if(userIdArr.indexOf(friendId) !== -1) {
-              // console.log('friendId', friendId);
-              // return friendId
-              mutual.push(friendId);
-            }
+      return Friend.findAll({where: {
+        userId: userId
+      }}).then(friends => {
+        for (var i = 0; i < friends.length; i++) {
+          let friendId = friends[i].userInfoId
+          if(userIdArr.indexOf(friendId) !== -1) {
+            mutual.push(friendId);
           }
-        }).then(now => {
-          console.log('mutual', mutual);
-          return mutual;
-
-        })
+        }
+      }).then(() => {
+        return mutual;
       })
     }
   }
