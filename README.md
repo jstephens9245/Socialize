@@ -1,16 +1,5 @@
 Socialize Site!!!
 
-webpack-dev-server --config config/webpack.dev.js --inline --open"
-
-
-class method Ideas:
- -find mutual friends
- -get user info for my friends
-
- instance methods:
- -set up a new Message with opposite sender and receivers
-
-///////////////////////////////////
 Express:
 
 Static file server
