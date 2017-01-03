@@ -6,7 +6,7 @@ export default function (props) {
     <sidebar>
       <section>
         <h4 className="menu-item">
-          <Link to={`/${props.user.id}`}>User</Link>
+          <Link to={`/${props.user.id}`}>Posts</Link>
         </h4>
       </section>
       <section>

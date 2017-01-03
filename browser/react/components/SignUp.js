@@ -37,7 +37,9 @@ const SignUp = (props) => {
               id="confirmation_password"
               placeholder="Password" />
           </div>
-          <button type="submit" className="btn btn-primary">Create Account</button>
+          <button type="submit" className="btn btn-primary" onClick={() => {
+            location.href = `/#/`;
+          }}>Create Account</button>
         </form>
       </div>
     </div>

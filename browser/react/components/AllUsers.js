@@ -5,8 +5,20 @@ import {Link} from 'react-router';
 export default function (props) {
 
   const bio = props;
-console.log('user id', bio.id);
-console.log('props', props);
+  console.log('bio.id', props);
+
+  let friendButton = null;
+
+  if((props.loggedInUser.id !== bio.id) && (Object.keys(props.loggedInUser).length)) {
+    console.log('user', props.loggedInUser.id);
+    console.log(props.loggedInUser.id !== bio.id);
+    friendButton = <button className="btn btn-primary" onClick={() => {
+      bio.addFriend(bio.id, bio.firstname, bio.lastname, bio.self)
+    }}>Add Friend</button>
+  } else {
+    friendButton = null;
+  }
+
   return (
     <div>
       <h3 className="col-xs-10 col-xs-offset-1"></h3>
@@ -24,13 +36,7 @@ console.log('props', props);
                   <small>{ bio.self }</small>
                 </div>
               </div>
-              { props.loggedInUser.id !== bio.id ? (
-                <button className="btn btn-primary" onClick={() => {
-                  bio.addFriend(bio.id, bio.firstname, bio.lastname, bio.self)
-                }}>Add Friend</button>
-              ) : null
-              }
-
+              { friendButton }
             </div>
       </div>
     </div>

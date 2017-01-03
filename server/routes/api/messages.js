@@ -12,12 +12,11 @@ router.get('/', function(req, res, next) {
   Message.findAll({
     include: [{
       model: User,
-      through: {
-        attributes: ['sender', 'receiver'],
+      as: 'sender',
         where: {
           sender: req.session.userId
         }
-      }}],
+      }],
   }).then(messages => {
     console.log(messages);
     res.json(messages)
@@ -25,23 +24,17 @@ router.get('/', function(req, res, next) {
 })
 
 router.post('/', function(req, res, next) {
-  // console.log(req.session.userId);
-
-  // User.findOne({
-  //   where: {
-  //     id: req.session.userId
-  //   }
-  // }).then(user => {
-  //   user.addMessage(user, { as: 'sender', through: 'FriendMessages'})
-  // })
+  console.log('hitting', req.body);
+  let newMessage;
   Message.create({
     text: req.body.message,
-    sender: req.session.userId
   })
   .then(message => {
-
-    console.log(message);
-    res.json(message)
+    newMessage = message;
+    return User.findById(req.session.userId)
+  }).then(user => {
+    user.addMessage(newMessage, { as: 'sender' })
+    res.json(newMessage)
   }).catch(next)
 })
 

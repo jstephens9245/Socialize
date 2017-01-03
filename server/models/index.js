@@ -20,8 +20,8 @@ Friend.belongsTo(User);
 // Session.hasMany(User)
 
 //many to many
-Message.belongsToMany(User, { as: 'sender', through: 'FriendMessages'})
-Message.belongsToMany(User, { as: 'receiver', through: 'FriendMessages'})
+User.belongsToMany(Message, { as: 'sender', through: 'FriendMessages'})
+User.belongsToMany(Message, { as: 'receiver', through: 'FriendMessages'})
 
 //one to one
 Bio.belongsTo(User);

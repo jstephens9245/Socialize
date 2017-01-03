@@ -27,7 +27,9 @@ const Login = (props) => {
               id="exampleInputPassword1"
               placeholder="Password"/>
           </div>
-          <button type="submit" className="btn btn-primary">Login</button>
+          <button type="submit" className="btn btn-primary" onClick={() => {
+            location.href = `/#/`;
+          }}>Login</button>
         </form>
       </div>
     </div>

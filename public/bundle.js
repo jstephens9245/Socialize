@@ -121,7 +121,7 @@
 	
 	var onUserEnter = function onUserEnter() {
 	  _store2.default.dispatch((0, _posts.loadAllPosts)());
-	  // store.dispatch(loadAllMessages());
+	  _store2.default.dispatch((0, _messages.loadAllMessages)());
 	};
 	var onAppEnter = function onAppEnter() {
 	  _store2.default.dispatch((0, _bios.loadAllBios)());
@@ -31141,7 +31141,7 @@
 	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/' + props.user.id },
-	          'User'
+	          'Posts'
 	        )
 	      )
 	    ),
@@ -31571,7 +31571,9 @@
 	        ),
 	        _react2.default.createElement(
 	          "button",
-	          { type: "submit", className: "btn btn-primary" },
+	          { type: "submit", className: "btn btn-primary", onClick: function onClick() {
+	              location.href = "/#/";
+	            } },
 	          "Login"
 	        )
 	      )
@@ -31752,8 +31754,24 @@
 	exports.default = function (props) {
 	
 	  var bio = props;
-	  console.log('user id', bio.id);
-	  console.log('props', props);
+	  console.log('bio.id', props);
+	
+	  var friendButton = null;
+	
+	  if (props.loggedInUser.id !== bio.id && Object.keys(props.loggedInUser).length) {
+	    console.log('user', props.loggedInUser.id);
+	    console.log(props.loggedInUser.id !== bio.id);
+	    friendButton = _react2.default.createElement(
+	      'button',
+	      { className: 'btn btn-primary', onClick: function onClick() {
+	          bio.addFriend(bio.id, bio.firstname, bio.lastname, bio.self);
+	        } },
+	      'Add Friend'
+	    );
+	  } else {
+	    friendButton = null;
+	  }
+	
 	  return _react2.default.createElement(
 	    'div',
 	    null,
@@ -31797,13 +31815,7 @@
 	            )
 	          )
 	        ),
-	        props.loggedInUser.id !== bio.id ? _react2.default.createElement(
-	          'button',
-	          { className: 'btn btn-primary', onClick: function onClick() {
-	              bio.addFriend(bio.id, bio.firstname, bio.lastname, bio.self);
-	            } },
-	          'Add Friend'
-	        ) : null
+	        friendButton
 	      )
 	    )
 	  );
@@ -32587,7 +32599,9 @@
 	        ),
 	        _react2.default.createElement(
 	          "button",
-	          { type: "submit", className: "btn btn-primary" },
+	          { type: "submit", className: "btn btn-primary", onClick: function onClick() {
+	              location.href = "/#/";
+	            } },
 	          "Create Account"
 	        )
 	      )

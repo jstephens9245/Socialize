@@ -29,7 +29,7 @@ const onPostEnter = function (nextRouterState) {
 
 const onUserEnter = function () {
   store.dispatch(loadAllPosts());
-  // store.dispatch(loadAllMessages());
+  store.dispatch(loadAllMessages());
 };
 const onAppEnter = function () {
   store.dispatch(loadAllBios());
